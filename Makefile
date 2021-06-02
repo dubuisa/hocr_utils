@@ -5,13 +5,13 @@ install_requirements:
 	@pip install -r requirements.txt
 
 check_code:
-	@flake8 scripts/* hocr-utils/*.py
+	@flake8 scripts/* hocr_utils/*.py
 
 black:
-	@black scripts/* hocr-utils/*.py
+	@black scripts/* hocr_utils/*.py
 
 test:
-	@coverage run -m pytest tests/*.py
+	@coverage run -m pytest -v tests/*.py
 	@coverage report -m --omit="${VIRTUAL_ENV}/lib/python*"
 
 ftest:
@@ -22,11 +22,14 @@ clean:
 	@rm -f .coverage
 	@rm -fr */__pycache__ */*.pyc __pycache__
 	@rm -fr build dist
-	@rm -fr hocr-utils-*.dist-info
-	@rm -fr hocr-utils.egg-info
+	@rm -fr hocr_utils-*.dist-info
+	@rm -fr hocr_utils.egg-info
 
 install:
 	@pip install . -U
+
+install_editable:
+	@pip install -e .
 
 all: clean install test black check_code
 

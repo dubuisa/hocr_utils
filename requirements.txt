@@ -1,29 +1,21 @@
+#package dependencies
+matplotlib==3.4.1
+pytesseract==0.3.7
+numpy==1.20.2
+pdf2image==1.14.0
+beautifulsoup4==4.9.3
+
 # packaging
 pip>=9
 setuptools>=26
 twine
 wheel>=0.29
 
-# data science
-numpy
-pandas
-scikit-learn
-
 # tests/linter
 black
 coverage
 flake8
 pytest
+pytest-mock==3.6.1 
 yapf
 
-# API
-gcsfs
-google-cloud-storage
-mlflow
-s3fs
-
-# utilities
-six>=1.14
-joblib
-memoized-property
-termcolor
