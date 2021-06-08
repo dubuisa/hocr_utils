@@ -90,46 +90,6 @@ def get_lang(hocr, default_lang="fra"):
     return max(set(langs), key=langs.count)
 
 
-def draw_pdf_with_boxes(
-    pdf_path=None, hocrs=None, by="line", page_id=None, pdf_bytes=None, hocr_dict=None
-):
-    """
-    Plot each pdf page with its corresponding recognize boxes of texts.
-
-    Parameters
-    ----------
-    pdf_path : str
-        the path of the pdf file
-    hocrs : str
-        the corresponding hocr file
-    bbox_type : str, optional (default = 'line')
-        type of bbox, choose on ['paragraph', 'line', 'word']
-    """
-
-    try:
-        from pdf2image import convert_from_path, convert_from_bytes
-        import cv2
-    except ImportError:
-        logger.error(
-            "pdf2image and cv2 have to be installed to use this function\n run `pip install -U pdf2image opencv-python`"
-        )
-        return
-
-    if pdf_bytes is not None:
-        images = convert_from_bytes(pdf_bytes)
-    else:
-        images = convert_from_path(pdf_path, 300)
-
-    if hocr_dict is None:
-        hocr_dict = hocr_as_dict(hocrs, by)
-    images_output = []
-    for i, img in enumerate(images):
-        if page_id is None or i == page_id:
-            lines = [l for l in hocr_dict if l["page"] == i]
-            images_output.append(_image_with_boxes(img, lines))
-    return images_output
-
-
 def hocr_as_dict(hocr, by="line"):
     """
     Return hocr as list of dict splited on "by" parameter
@@ -168,6 +128,46 @@ def hocr_as_dict(hocr, by="line"):
                 }
                 hocr_list.append(hocr_dict)
     return hocr_list
+
+
+def draw_pdf_with_boxes(
+    pdf_path=None, hocrs=None, by="line", page_id=None, pdf_bytes=None, hocr_dict=None
+):
+    """
+    Plot each pdf page with its corresponding recognize boxes of texts.
+
+    Parameters
+    ----------
+    pdf_path : str
+        the path of the pdf file
+    hocrs : str
+        the corresponding hocr file
+    bbox_type : str, optional (default = 'line')
+        type of bbox, choose on ['paragraph', 'line', 'word']
+    """
+
+    try:
+        from pdf2image import convert_from_path, convert_from_bytes
+        import cv2
+    except ImportError:
+        logger.error(
+            "pdf2image and cv2 have to be installed to use this function\n run `pip install -U pdf2image opencv-python`"
+        )
+        return
+
+    if pdf_bytes is not None:
+        images = convert_from_bytes(pdf_bytes)
+    else:
+        images = convert_from_path(pdf_path, 300)
+
+    if hocr_dict is None:
+        hocr_dict = hocr_as_dict(hocrs, by)
+    images_output = []
+    for i, img in enumerate(images):
+        if page_id is None or i == page_id:
+            lines = [l for l in hocr_dict if l["page"] == i]
+            images_output.append(_image_with_boxes(img, lines))
+    return images_output
 
 
 def _extract_bbox(text):

@@ -5,10 +5,10 @@ install_requirements:
 	@pip install -r requirements.txt
 
 check_code:
-	@flake8 scripts/* hocr_utils/*.py
+	@flake8 scripts/* hocr_utils/*.py tests/*.py
 
 black:
-	@black scripts/* hocr_utils/*.py
+	@black scripts/* hocr_utils/*.py tests/*.py
 
 test:
 	@coverage run -m pytest -v tests/*.py
