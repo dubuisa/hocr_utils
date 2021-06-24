@@ -13,6 +13,18 @@ logger = logging.getLogger(__name__)
 
 
 def images_to_hocr(images, lang="fra+deu+ita+eng", config="--psm 4"):
+    """Transforms a list of PIL images into an hOCR file.
+
+    Parameters
+    ----------
+    images : List
+        List of PIL images
+    lang: str, optional (default="fra+deu+ita+eng")
+        Supporter Language of Pytesseract. 
+    config: str, optional (default = "--psm 4")
+        Custom configuration flag used by Tesseract
+    """
+
     try:
         import pytesseract
     except ImportError:
@@ -32,6 +44,18 @@ def images_to_hocr(images, lang="fra+deu+ita+eng", config="--psm 4"):
 
 
 def pdf_to_hocr(path, lang="fra+deu+ita+eng", config="--psm 4"):
+    """Loads and transform a pdf into an hOCR file.
+
+    Parameters
+    ----------
+    path : str, required
+        The pdf's path
+    lang: str, optional (default="fra+deu+ita+eng")
+        Supporter Language of Pytesseract. 
+    config: str, optional (default = "--psm 4")
+        Custom configuration flag used by Tesseract
+    """
+
     try:
         import pytesseract
         from pdf2image import convert_from_bytes
@@ -48,8 +72,16 @@ def pdf_to_hocr(path, lang="fra+deu+ita+eng", config="--psm 4"):
 
 def get_page(hocr, page_index):
     """
-    Gets the page according to the page_index variable
+    Gets the page according to the page_index parameter
+
+    Parameters
+    ----------
+    hocr : str, required
+        an hOCR Document
+    page_index: str, required
+        The index of the page to be returned
     """
+
     soup = BeautifulSoup(hocr, BS4_PARSER)
     result = soup.find("div", {"id": f"page_{page_index+1}"})
     if result:
@@ -62,6 +94,11 @@ def get_page(hocr, page_index):
 def len_pages(hocr):
     """
     Returns the number of pages
+
+    Parameters
+    ----------
+    hocr : str, required
+        an hOCR Document
     """
     soup = BeautifulSoup(hocr, BS4_PARSER)
     return len(soup.find_all("div", {"class": "ocr_page"}))
@@ -70,6 +107,13 @@ def len_pages(hocr):
 def get_text(hocr, page_index=None):
     """
     Returns the textual content of the text or the content of the specified `page_index`
+
+    Parameters
+    ----------
+    hocr : str, required
+        an hOCR Document
+    page_index: str, required
+        The index of the page to be returned
     """
 
     if page_index:
@@ -83,7 +127,15 @@ def get_text(hocr, page_index=None):
 def get_lang(hocr, default_lang="fra"):
     """
     Retrieves the most represented language, returns `default_lang` if language is undefined in hocr
+    
+    Parameters
+    ----------
+    hocr : str, required
+        an hOCR Document
+    default_lang: str, optional (default='fra')
+        The default language if the language is undefined
     """
+
     langs = re.findall(r'lang="([a-z]{3})"', hocr)
     if len(langs) == 0:
         return default_lang
@@ -131,7 +183,12 @@ def hocr_as_dict(hocr, by="line"):
 
 
 def draw_pdf_with_boxes(
-    pdf_path=None, hocrs=None, by="line", page_id=None, pdf_bytes=None, hocr_dict=None
+    pdf_path=None,
+    pdf_bytes=None,
+    hocrs=None,
+    by="line",
+    page_id=None,
+    hocr_dict=None
 ):
     """
     Plot each pdf page with its corresponding recognize boxes of texts.
@@ -142,8 +199,11 @@ def draw_pdf_with_boxes(
         the path of the pdf file
     hocrs : str
         the corresponding hocr file
-    bbox_type : str, optional (default = 'line')
+    by : str, optional (default = 'line')
         type of bbox, choose on ['paragraph', 'line', 'word']
+    page_id: int, optional (default = None)
+        argument to specify a single page of the pdf
+    pdf_bytes
     """
 
     try:
@@ -171,6 +231,14 @@ def draw_pdf_with_boxes(
 
 
 def _extract_bbox(text):
+    """
+    Extracts the bounding box values from the text
+
+    Parameters
+    ----------
+    text : str, required
+    """
+
     return list(map(int, re.findall(r"bbox ((?:\d{1,}\s?){4})", text)[0].split(" ")))
 
 
