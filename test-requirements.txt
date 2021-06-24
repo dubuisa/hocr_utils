@@ -1,0 +1,12 @@
+-r requirements.txt
+pytesseract==0.3.7
+pdf2image==1.16.0 
+opencv-python==4.5.2.54
+
+# tests/linter
+black
+coverage
+flake8
+pytest
+pytest-mock==3.6.1 
+yapf
