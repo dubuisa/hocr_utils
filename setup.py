@@ -17,7 +17,7 @@ setup(name='hocr_utils',
       url="https://github.com/Mrmarx/hocr-utils"
       install_requires=INSTALL_REQUIRES,
       tests_require=TESTS_REQUIRE,
-      python_requires='>=3.6',
+      python_requires='>=3.7',
       keywords='hocr tesseract utility',
       test_suite='tests',
       project_urls={
