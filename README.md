@@ -1,67 +1,69 @@
-# Data analysis
-- Document here the project: hocr-utils
-- Description: Project Description
-- Data Source:
-- Type of analysis:
+# hocr_utils
+**hocr_utils** is a package to transform, plot and simply the use of hOCR files.
 
-Please document the project the better you can.
+# Installation
 
-# Startup the project
+## Dependencies
 
-The initial setup.
+hocr-utils requires:
 
-Create virtualenv and install the project:
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv ~/venv ; source ~/venv/bin/activate ;\
-    pip install pip -U; pip install -r requirements.txt
-```
+- Python (>= |3.7|)
 
-Unittest test:
-```bash
-make clean install test
-```
+## Optional Dependencies
 
-Check for hocr-utils in gitlab.com/{group}.
-If your project is not set please add it:
+The functions to plot, transform pdf into hOCR require the following additional dependencies:
 
-- Create a new project on `gitlab.com/{group}/hocr-utils`
-- Then populate it:
+- pytesseract
+- pdf2image
+- opencv-python
+
+Additionaly tesseract language pack need to be install for non-english ocr.
+
+Example: install french language package on ubuntu with:
 
 ```bash
-##   e.g. if group is "{group}" and project_name is "hocr-utils"
-git remote add origin git@github.com:{group}/hocr-utils.git
-git push -u origin master
-git push -u origin --tags
+apt-get install tesseract-ocr-fra
 ```
 
-Functionnal test with a script:
+
+## User Installation
+
+The easiest way to install scikit-learn is using `pip`:
 
 ```bash
-cd
-mkdir tmp
-cd tmp
-hocr-utils-run
+pip install -U hocr_utils
+
+```
+    
+# Usecases
+
+## Transform PIL Images to hOCR
+
+Requires `pytesseract` dependency and the requested tesseract language pack.
+
+```python
+from hocr_utils import utils
+from PIL import Image
+
+image = Image.open('./data/sample.png')
+hocr = utils.images_to_hocr([image])
 ```
 
-# Install
+## Transform pdf to hOCR
 
-Go to `https://github.com/{group}/hocr-utils` to see the project, manage issues,
-setup you ssh public key, ...
+Requires `pytesseract, pdf2image` dependencies as well as the requested tesseract language pack.
 
-Create a python3 virtualenv and activate it:
 
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv -ppython3 ~/venv ; source ~/venv/bin/activate
+```python
+from hocr_utils import utils
+
+hocr = utils.pdf_to_hocr('./data/sample.pdf')
 ```
 
-Clone the project and install it:
+## Transform hOCR to list of dictionary
 
-```bash
-git clone git@github.com:{group}/hocr-utils.git
-cd hocr-utils
-pip install -r requirements.txt
-make clean install test                # install and test
+```python
+from hocr_utils import utils
+hocr_dict = utils.hocr_as_dict(hocr)
 ```
-Functionnal test with a script:
+This can then be transformed into pandas dataFrame using `pd.dataFrame.from_records(hocr_dict)`
