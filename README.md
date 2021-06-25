@@ -25,7 +25,6 @@ Example: install french language package on ubuntu with:
 apt-get install tesseract-ocr-fra
 ```
 
-
 ## User Installation
 
 The easiest way to install scikit-learn is using `pip`:
@@ -51,7 +50,7 @@ hocr = utils.images_to_hocr([image])
 
 ## Transform pdf to hOCR
 
-Requires `pytesseract, pdf2image` dependencies as well as the requested tesseract language pack.
+Requires `pytesseract`, `pdf2image` dependencies as well as the requested tesseract language pack.
 
 
 ```python
@@ -64,6 +63,17 @@ hocr = utils.pdf_to_hocr('./data/sample.pdf')
 
 ```python
 from hocr_utils import utils
+
 hocr_dict = utils.hocr_to_dict(hocr)
 ```
 This can then be transformed into pandas dataFrame using `pd.dataFrame.from_records(hocr_dict)`
+
+By default there will be one entry per line in the hOCR, However it is possible to group the list by `['paragraph', 'line', 'word']` using `by` argument.
+
+## Get a single page from hOCR
+
+```python
+from hocr_utils import utils
+
+hocr_1 = utils.get_page(hocr, 1)
+```
