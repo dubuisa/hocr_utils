@@ -1,5 +1,5 @@
 # hocr_utils
-**hocr_utils** is a package to transform, plot and simply the use of hOCR files.
+**hocr_utils** is a package to transform, plot and simplify the use of hOCR files.
 
 # Installation
 
