@@ -142,7 +142,7 @@ def get_lang(hocr, default_lang="fra"):
     return max(set(langs), key=langs.count)
 
 
-def hocr_as_dict(hocr, by="line"):
+def hocr_to_dict(hocr, by="line"):
     """
     Return hocr as list of dict splited on "by" parameter
 
@@ -221,7 +221,7 @@ def draw_pdf_with_boxes(
         images = convert_from_path(pdf_path, 300)
 
     if hocr_dict is None:
-        hocr_dict = hocr_as_dict(hocrs, by)
+        hocr_dict = hocr_to_dict(hocrs, by)
     images_output = []
     for i, img in enumerate(images):
         if page_id is None or i == page_id:

@@ -172,9 +172,9 @@ def test_get_lang_no_lang_defined():
         ("word", "1", 4, "C", 1, 2, 3, 4),
     ],
 )
-def test_hocr_as_dict(by, text, n_element, id_, x1, y1, x2, y2):
+def test_hocr_to_dict(by, text, n_element, id_, x1, y1, x2, y2):
 
-    r = utils.hocr_as_dict(SAMPLE_HOCR, by=by)
+    r = utils.hocr_to_dict(SAMPLE_HOCR, by=by)
     assert len(r) == n_element
     assert r[0]["text"] == text
     assert r[0]["page"] == 0
@@ -210,7 +210,7 @@ def test_draw_pdf_with_boxes(pdf_path, pdf_bytes, hocrs, hocr_dict, page_id, moc
     m1 = mocker.patch("pdf2image.convert_from_bytes", return_value=images)
     m2 = mocker.patch("pdf2image.convert_from_path", return_value=images)
     m3 = mocker.patch(
-        "hocr_utils.utils.hocr_as_dict",
+        "hocr_utils.utils.hocr_to_dict",
         return_value=[{"page": 0}, {"page": 0}, {"page": 1}],
     )
     m4 = mocker.patch("hocr_utils.utils._image_with_boxes", return_value=images)

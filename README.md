@@ -64,6 +64,6 @@ hocr = utils.pdf_to_hocr('./data/sample.pdf')
 
 ```python
 from hocr_utils import utils
-hocr_dict = utils.hocr_as_dict(hocr)
+hocr_dict = utils.hocr_to_dict(hocr)
 ```
 This can then be transformed into pandas dataFrame using `pd.dataFrame.from_records(hocr_dict)`
