@@ -1,4 +1,12 @@
+
 # hocr_utils
+
+![ci_master](https://github.com/Mrmarx/hocr_utils/workflows/CI/badge.svg?branch=master)
+
+![pypi_package_version](https://img.shields.io/pypi/v/hocr-utils.svg?color=blue)
+
+![pypi_python_version](https://img.shields.io/pypi/pyversions/hocr-utils.svg)
+
 **hocr_utils** is a package to transform, plot and simplify the use of hOCR files.
 
 # Installation
