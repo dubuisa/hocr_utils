@@ -13,8 +13,10 @@ setup(name='hocr_utils',
       author="Antoine Dubuis",
       author_email="antoine.dubuis@gmail.com",
       description="Package containing utility function for hOCR and tesseract",
+      long_description_content_type="text/markdown",
+      long_description=long_description,
       packages=find_packages(),
-      url="https://github.com/Mrmarx/hocr-utils",
+      url="https://github.com/Mrmarx/hocr_utils",
       install_requires=INSTALL_REQUIRES,
       tests_require=TESTS_REQUIRE,
       python_requires='>=3.7',
@@ -23,5 +25,13 @@ setup(name='hocr_utils',
       project_urls={
         'Homepage': 'https://github.com/Mrmarx/hocr-utils',
       },
-      long_description=long_description,
+      classifiers=[
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10'
+        "Topic :: Utilities",
+        "License :: OSI Approved :: MIT License",
+
+      ]
       zip_safe=False)
