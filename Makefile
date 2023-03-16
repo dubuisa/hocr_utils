@@ -12,7 +12,7 @@ black:
 
 test:
 	@coverage run -m pytest -v tests/*.py
-	@coverage report -m --omit="${VIRTUAL_ENV}/lib/python*"
+	@coverage report -m --omit="${VIRTUAL_ENV}/lib/python*" -i
 
 ftest:
 	@Write me
