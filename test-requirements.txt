@@ -8,5 +8,5 @@ black
 coverage
 flake8
 pytest
-pytest-mock==3.6.1 
+pytest-mock>=3.6.1 
 yapf
